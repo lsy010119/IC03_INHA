@@ -1,0 +1,74 @@
+{
+    "seed": 255,
+    "device": "cuda:0",
+
+    "cluster": {
+        "data": {
+            "file_path": "All_types_phase3.csv",
+            "n_sample": 1000,
+            "selected_class": [2,3,4,5],
+            "batch_size": 512
+        },
+
+        "model": {
+            "n_cluster": 6,
+            "hidden_dims": [
+                [":NUM_FEAT", 60],
+                [60, 20]
+            ]
+        },
+
+        "train": {
+            "epoch": 1000,
+            "lr": 1e-4,
+            "weight_decay": 1e-8,
+            "scheduler_step": 200,
+            "scheduler_gamma": 0.8,
+            "save_every": 10,
+            "save_path": "DEC_6_good.pth"
+        }
+    },
+
+    "DEC": {
+        "data": {
+            "file_path": "All_types_phase3.csv",
+
+            "n_wdw": 100,
+            "n_pred": 100,
+            "n_sample": 20,
+            "n_token": 1,
+            "selected_class": [2,3,4,5],
+
+            "batch_size": 256,
+            "test_batch_size": 10
+        },
+
+        "ae_model": {
+            "hidden_dims": [
+                [":NUM_FEAT", 60],
+                [60, 20]
+            ],
+            "n_cluster": 6,
+            "checkpoint_path": "DEC_6_good.pth"
+        },
+
+        "transformer_model": {
+            "d_model": 64,
+            "dropout": 0.1,
+            "n_layerE": 5,
+            "n_layerD": 5,
+            "nhead": 8
+        },
+
+        "train": {
+            "epoch": 500,
+            "lr": 0.0001,
+            "weight_decay": 1e-8,
+            "scheduler_step": 500,
+            "scheduler_gamma": 0.8,
+
+            "save_every": 50,
+            "save_path": "ED_DEC_6_test.pth"
+        }
+    }
+}
